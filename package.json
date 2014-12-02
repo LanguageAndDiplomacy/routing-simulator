@@ -1,0 +1,22 @@
+{
+  "name": "routing-simulator",
+  "version": "0.0.0",
+  "description": "routing-simulator =================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LanguageAndDiplomacy/routing-simulator.git"
+  },
+  "author": "andylei@gmail.com",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/LanguageAndDiplomacy/routing-simulator/issues"
+  },
+  "homepage": "https://github.com/LanguageAndDiplomacy/routing-simulator",
+  "dependencies": {
+    "express": "^4.10.4"
+  }
+}

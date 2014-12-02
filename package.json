@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/LanguageAndDiplomacy/routing-simulator",
   "dependencies": {
-    "express": "^4.10.4"
+    "body-parser": "^1.9.3",
+    "express": "^4.10.4",
+    "lodash": "^2.4.1"
   }
 }

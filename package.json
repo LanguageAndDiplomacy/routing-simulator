@@ -12,6 +12,9 @@
   },
   "author": "andylei@gmail.com",
   "license": "GPL",
+  "engines": {
+    "node": "0.10.x"
+  },
   "bugs": {
     "url": "https://github.com/LanguageAndDiplomacy/routing-simulator/issues"
   },

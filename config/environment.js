@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'routing-simulator-cli',
+    modulePrefix: 'routing-simulator',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',

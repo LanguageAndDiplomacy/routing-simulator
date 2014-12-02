@@ -147,7 +147,27 @@ app.get('/users/:id/sent-messages', function(req, res) {
   }
 });
 
+
+// =========== debug ==========
+
+function setupTestData() {
+  USERS['alice'] = true;
+  USERS['bob'] = true;
+  USERS['carol'] = true;
+  USERS['dave'] = true;
+
+  CONNECTIONS.add('alice', 'bob');
+  CONNECTIONS.add('alice', 'carol');
+  CONNECTIONS.add('bob', 'dave');
+  CONNECTIONS.add('carol', 'dave');
+
+  MESSAGES.push({from: 'alice', to: 'bob', body: 'hi to bob'});
+  MESSAGES.push({from: 'bob', to: 'alice', body: 'hi to alice'});
+  MESSAGES.push({from: 'dave', to: 'carol', body: 'hi to carol'});
+}
+
 app.listen(app.get('port'), function() {
+  setupTestData();
   console.log("Node app is running at localhost:" + app.get('port'));
 });
 

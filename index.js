@@ -34,8 +34,12 @@ ConnectionStore.prototype.add = function(u1, u2) {
 function MessageStore() {
   this.data = [];
 }
-MessageStore.prototype.getTo = function(user) {
-  return _.filter(this.data, {to: user});
+MessageStore.prototype.all = function() {
+  return this.data.slice(0);
+};
+MessageStore.prototype.getTo = function(user, since) {
+  var start = since ? since : 0;
+  return _.filter(this.data.slice(start), {to: user});
 };
 MessageStore.prototype.getFrom = function(user) {
   return _.filter(this.data, {from: user});
@@ -121,6 +125,9 @@ app.post('/connections', function(req, res) {
 });
 
 
+app.get('/messages', function(req, res) {
+  res.send(MESSAGES.all());
+});
 app.post('/messages', function(req, res) {
   var msg = req.body;
   if (isValidMessage(msg)) {
@@ -133,7 +140,8 @@ app.post('/messages', function(req, res) {
 app.get('/users/:id/messages', function(req, res) {
   var name = req.params.id;
   if (USERS[name]) {
-    res.send(MESSAGES.getTo(name));
+    var since = req.query.since ? parseInt(req.query.since) : null;
+    res.send(MESSAGES.getTo(name, since));
   } else {
     res.status(404).send('Not Found');
   }

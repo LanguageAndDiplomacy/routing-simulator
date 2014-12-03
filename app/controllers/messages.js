@@ -3,9 +3,11 @@ import ajax from '../utils/ajax';
 
 export default Ember.ArrayController.extend({
   needs: ['login'],
-  me: Ember.computed.alias('controllers.login.name'),
   sortProperties: ['id'],
   sortAscending: false,
+
+  me: Ember.computed.alias('controllers.login.name'),
+  latestMessageId: Ember.computed.alias('firstObject.id'),
 
   pendingTo: null,
   pendingText: null,

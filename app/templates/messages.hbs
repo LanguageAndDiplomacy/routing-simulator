@@ -1,4 +1,4 @@
-<p>Hello, {{me}}</p>
+<h2>Hello, <i>{{me}}</i></h2>
 <p>You can <a href="javascript:null;" {{action "openComposer"}}>send</a> and receive messages from:</p>
 <ul class="connections">
   {{#each conn in connections}}
@@ -27,7 +27,9 @@
 <ul class="messages">
   {{#each msg in controller}}
     <li>
-      From: <span class="message-from">{{msg.from}}</span><br>
+      Message #: <span class="message-number">{{msg.id}}</span>
+      From: <span class="message-from">{{msg.from}}</span>
+      <br>
       <span class="message-body">{{msg.body}}</span>
     </li>
   {{/each}}

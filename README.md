@@ -104,7 +104,6 @@ Message ids are guaranteed to increase.
 
 ### UI
 
-- refresh messages
 - sent messages
 - topology view
 - styling

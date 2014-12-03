@@ -1,0 +1,35 @@
+<p>Hello, {{me}}</p>
+<p>You can <a href="javascript:null;" {{action "openComposer"}}>send</a> and receive messages from:</p>
+<ul>
+  {{#each conn in connections}}
+    <li>{{conn}}</li>
+  {{/each}}
+</ul>
+
+<div {{bind-attr class=":composer composerIsOpen::hidden"}}>
+  <h3>Send a message</h3>
+  <form>
+    <p>To: <br>{{view "select" content=connections value=pendingTo}}</p>
+    <p>Message: <br>{{textarea value=pendingText cols=80 rows=5}}</p>
+    <p>
+      <button {{bind-attr disabled=cantSend}} {{action "send"}}>Send</button>
+      <button {{bind-attr disabled=composerIsSending}} {{action "cancelComposer"}}>Cancel</button>
+    </p>
+  </form>
+</div>
+<div {{bind-attr class=":composer-success composerSendSuccess::hidden"}}>
+  <b>Your message was successfully sent!</b>
+  <a href="javascript:null;" {{action "openComposer"}}>Send another message</a>
+</div>
+
+<h3>You have {{controller.length}} messages:</h3>
+
+<ul class="messages">
+  {{#each msg in controller}}
+    <li>
+      From: {{msg.from}}<br>
+      Message: {{msg.body}}
+    </li>
+  {{/each}}
+</div>
+

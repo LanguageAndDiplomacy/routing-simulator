@@ -42,6 +42,7 @@ MessageStore.prototype.getFrom = function(user) {
 };
 MessageStore.prototype.push = function(msg) {
   msg = _.pick(msg, ['body', 'from', 'to']);
+  msg.id = this.data.length + 1;
   this.data.push(msg);
   return msg;
 };

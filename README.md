@@ -82,11 +82,14 @@ Run `node index.js`
 
 ### /messages
 
+Message ids are guaranteed to increase.
+
 ```json
 {
+  "id": 1,
   "body": "hi bob",
   "to": "andy",
-  "from": "bob
+  "from": "bob"
 }
 ```
 

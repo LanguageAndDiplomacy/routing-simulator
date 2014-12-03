@@ -99,3 +99,19 @@ Message ids are guaranteed to increase.
 
 - `GET /users/{id}/sent-messages`
 
+
+## TODOS
+
+### UI
+
+- refresh messages
+- sent messages
+- topology view
+- styling
+
+### Functionality
+
+- autogenerate topology
+- reset sim
+- topology editor?
+

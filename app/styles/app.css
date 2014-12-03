@@ -5,3 +5,18 @@ html, body {
 .hidden {
   display: none;
 }
+
+.connections {
+  color: green;
+}
+
+.message-from {
+  color: green;
+}
+.message-body {
+  white-space: pre-line;
+}
+
+.messages > li {
+  padding-bottom: 20px;
+}

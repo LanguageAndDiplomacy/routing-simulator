@@ -1,6 +1,6 @@
 <p>Hello, {{me}}</p>
 <p>You can <a href="javascript:null;" {{action "openComposer"}}>send</a> and receive messages from:</p>
-<ul>
+<ul class="connections">
   {{#each conn in connections}}
     <li>{{conn}}</li>
   {{/each}}
@@ -27,8 +27,8 @@
 <ul class="messages">
   {{#each msg in controller}}
     <li>
-      From: {{msg.from}}<br>
-      Message: {{msg.body}}
+      From: <span class="message-from">{{msg.from}}</span><br>
+      <span class="message-body">{{msg.body}}</span>
     </li>
   {{/each}}
 </div>

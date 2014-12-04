@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import ajax from '../utils/ajax';
 
-export default Ember.Controller.extend({
+export default Ember.ArrayController.extend({
   message: null,
+  pendingFrom: null,
+  pendingTo: null,
   actions: {
     reset: function() {
       var _this = this;
@@ -16,6 +18,29 @@ export default Ember.Controller.extend({
         return 'Reset failed!';
       }).then(function(msg) {
         _this.set('message', msg);
+      });
+    },
+    removeConnection: function(conn) {
+    },
+    addConnection: function() {
+      var _this = this;
+      var from = this.get('pendingFrom');
+      var to = this.get('pendingTo');
+      if (!to || !from) {
+        return;
+      }
+      var conn = {from: from, to: to};
+      ajax({
+        type: 'POST',
+        url: '/connections',
+        data: JSON.stringify(conn),
+        contentType: 'application/json',
+        dataType: 'json'
+      }).then(function(conn) {
+        _this.pushObject(conn);
+      }, function(err) {
+        console.log(err);
+        _this.set('message', 'Unable to add connection!');
       });
     }
   }

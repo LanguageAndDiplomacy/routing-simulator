@@ -1,3 +1,23 @@
-<p>{{message}}</p>
-<br>
-<button {{action "reset"}}>Reset Sim</button>
+<div>{{message}}</div>
+<div>
+  <button {{action "reset"}}>Reset Sim</button>
+</div>
+<div>
+  <h3>Connections</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>{{input value=pendingFrom}}</td>
+        <td>{{input value=pendingTo}}</td>
+        <td><button {{action "addConnection"}}>Add</button></td>
+      </tr>
+      {{#each conn in controller}}
+        <tr>
+          <td>{{conn.from}}</td>
+          <td>{{conn.to}}</td>
+          <td><button {{action "removeConnection" conn}}>X</button></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

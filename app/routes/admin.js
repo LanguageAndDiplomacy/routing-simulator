@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ajax from '../utils/ajax';
 
 // admin route
 export default Ember.Route.extend({
@@ -8,5 +9,12 @@ export default Ember.Route.extend({
       return;
     }
     this.transitionTo('login');
+  },
+  model: function() {
+    return ajax({
+      type: 'GET',
+      url: '/connections',
+      dataType: 'json'
+    });
   }
 });

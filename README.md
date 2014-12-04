@@ -110,6 +110,5 @@ Message ids are guaranteed to increase.
 ### Functionality
 
 - autogenerate topology
-- reset sim
 - topology editor?
 

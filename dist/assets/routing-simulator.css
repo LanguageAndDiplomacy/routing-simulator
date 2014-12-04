@@ -30,3 +30,11 @@ html, body {
 .sent.messages {
   padding-left: 50px;
 }
+
+.panel {
+  width: 300px;
+  float: left;
+}
+.users.panel {
+  padding-left: 50px;
+}

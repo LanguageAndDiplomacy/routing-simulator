@@ -11,10 +11,17 @@ export default Ember.Route.extend({
     this.transitionTo('login');
   },
   model: function() {
-    return ajax({
-      type: 'GET',
-      url: '/connections',
-      dataType: 'json'
+    var _this = this;
+    return Ember.RSVP.hash({
+      connections: ajax({ type: 'GET', url: '/connections', dataType: 'json' }),
+      users: ajax({ type: 'GET', url: '/users', dataType: 'json' })
+    }).then(function(models) {
+      _this.set('users', models.users);
+      return models.connections;
     });
+  },
+  setupController: function(controller, model) {
+    this._super(controller, model);
+    controller.set('users', this.get('users'));
   }
 });

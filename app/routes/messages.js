@@ -42,18 +42,24 @@ export default Ember.Route.extend({
     if (Ember.isNone(this.get('poller'))) {
       var _this = this;
       var p = Poller.create({
-        interval: 2000,
+        interval: 3000,
+        isPolling: false,
         onPoll: function() {
-          var latest = controller.get('latestMessageId');
-          if (!latest) {
+          var poller = this;
+          if (this.get('isPolling')) {
             return;
           }
+          this.set('isPolling', true);
+          var latest = controller.get('latestMessageId');
+          var query = latest ? '?since=' + latest : '';
           ajax({
             type: 'GET',
-            url: '/users/' + _this.myUserName() + '/messages?since=' + latest,
+            url: '/users/' + _this.myUserName() + '/messages' + query,
             dataType: 'json'
           }).then(function(results) {
             controller.get('model').pushObjects(results);
+          }).finally(function() {
+            poller.set('isPolling', false);
           });
         }
       });

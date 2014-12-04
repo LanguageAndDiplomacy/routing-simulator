@@ -2,6 +2,10 @@ import Ember from 'ember';
 import ajax from '../utils/ajax';
 import Poller from '../utils/poller';
 
+function get(url) {
+  return ajax({ type: 'GET', url: url, dataType: 'json' });
+}
+
 export default Ember.Route.extend({
   myUserName: function() {
     return this.controllerFor('login').get('name');
@@ -15,25 +19,23 @@ export default Ember.Route.extend({
   model: function() {
     var _this = this;
     var name = this.myUserName();
-    var msgs = ajax({
-      type: 'GET',
-      url: '/users/' + name + '/messages',
-      dataType: 'json'
-    });
-    var conns = ajax({
-      type: 'GET',
-      url: '/connections?related-to=' + name,
-      dataType: 'json'
-    });
-    var p = Ember.RSVP.hash({msgs: msgs, conns: conns});
+    var msgs = get('/users/' + name + '/messages');
+    var sent = get('/users/' + name + '/sent-messages');
+    var conns = get('/connections?related-to=' + name);
+
+    var p = Ember.RSVP.hash({msgs: msgs, conns: conns, sent: sent});
     return p.then(function(hash) {
       _this.set('connections', hash.conns);
+      hash.sent.sort(function(msg1, msg2) { return msg2.id - msg1.id; });
+      _this.set('sentMessages', hash.sent);
       return hash.msgs;
     });
   },
   setupController: function(controller, model) {
     this._super(controller, model);
     controller.set('connections', this.get('connections'));
+    var sent = Ember.ArrayController.create({model: this.get('sentMessages')});
+    controller.set('sentMessages', sent);
     this.setupPoller(controller);
   },
   setupPoller: function(controller) {

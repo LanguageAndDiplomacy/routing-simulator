@@ -22,16 +22,32 @@
   <a href="javascript:null;" {{action "openComposer"}}>Send another message</a>
 </div>
 
-<h3>You have {{controller.length}} messages:</h3>
+<div class="messages">
+  <h3>You have {{controller.length}} messages:</h3>
 
-<ul class="messages">
-  {{#each msg in controller}}
-    <li>
-      Message #: <span class="message-number">{{msg.id}}</span>
-      From: <span class="message-from">{{msg.from}}</span>
-      <br>
-      <span class="message-body">{{msg.body}}</span>
-    </li>
-  {{/each}}
+  <ul>
+    {{#each msg in controller}}
+      <li>
+        Message #<span class="message-number">{{msg.id}}</span>,
+        From: <span class="message-from">{{msg.from}}</span>
+        <br>
+        <span class="message-body">{{msg.body}}</span>
+      </li>
+    {{/each}}
+  </ul>
 </div>
 
+<div class="sent messages">
+  <h3>{{#if sentMessages.length}}{{else}}No {{/if}}Sent Messages:</h3>
+
+  <ul>
+    {{#each msg in sentMessages}}
+      <li>
+        Message #<span class="message-number">{{msg.id}}</span>,
+        To: <span class="message-from">{{msg.to}}</span>
+        <br>
+        <span class="message-body">{{msg.body}}</span>
+      </li>
+    {{/each}}
+  </ul>
+</div>

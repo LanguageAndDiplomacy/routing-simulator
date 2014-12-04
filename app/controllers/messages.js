@@ -49,10 +49,12 @@ export default Ember.ArrayController.extend({
         data: JSON.stringify(this.get('pendingMessage')),
         contentType: 'application/json',
         dataType: 'json'
-      }).then(function() {
+      }).then(function(msg) {
+        _this.set('pendingText', null);
         _this.set('composerSendSuccess', true);
         _this.set('composerIsOpen', false);
         _this.set('composerIsSending', false);
+        _this.get('sentMessages').unshiftObject(msg);
       });
     }
   }

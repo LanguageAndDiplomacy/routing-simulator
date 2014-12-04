@@ -20,6 +20,13 @@ html, body {
   white-space: pre-line;
 }
 
-.messages > li {
+.messages > ul > li {
   padding-bottom: 20px;
+}
+.messages {
+  float: left;
+  width: 300px;
+}
+.sent.messages {
+  padding-left: 50px;
 }

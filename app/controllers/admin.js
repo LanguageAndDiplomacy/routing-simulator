@@ -20,6 +20,16 @@ export default Ember.ArrayController.extend({
         _this.set('message', msg);
       });
     },
+    generateRingTopology: function() {
+      var _this = this;
+      ajax({
+        type: 'POST',
+        url: '/admin/topology/ring',
+        dataType: 'json'
+      }).then(function(connections) {
+        _this.set('model', connections);
+      });
+    },
     removeConnection: function(conn) {
       var _this = this;
       var removeFromUI = function() { _this.removeObject(conn); };

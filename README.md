@@ -109,6 +109,5 @@ Message ids are guaranteed to increase.
 
 ### Functionality
 
-- autogenerate topology
 - topology editor?
 

@@ -196,6 +196,16 @@ app.post('/admin/reset', function(req, res) {
   res.send('ok');
 });
 
+app.post('/admin/topology/ring', function(req, res) {
+  CONNECTIONS.reset();
+  var users = _.chain(USERS).keys().without('tealsteachers').value();
+  for (var i = 0; i < users.length; i++) {
+    var next = (i + 1) % users.length;
+    CONNECTIONS.add(users[i], users[next]);
+  }
+  res.send(CONNECTIONS.all());
+});
+
 
 // =========== debug ==========
 

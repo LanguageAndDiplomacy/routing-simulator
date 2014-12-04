@@ -12,8 +12,22 @@ app.use(bodyParser.json());
 // ============  data  =============
 
 function ConnectionStore() {
-  this.data = {};
+  this.reset();
 }
+ConnectionStore.prototype.reset = function() {
+  this.data = {};
+};
+ConnectionStore.prototype.all = function() {
+  var data = this.data;
+  var results = {};
+  _.keys(data).forEach(function(u1) {
+    _.keys(data[u1]).forEach(function(u2) {
+      var uniqid = [u1, u2].sort().join();
+      results[uniqid] = buildConnection(u1, u2);
+    });
+  });
+  return _.values(results);
+};
 ConnectionStore.prototype.list = function(u) {
   return _.keys(this.data[u]);
 };
@@ -32,8 +46,11 @@ ConnectionStore.prototype.add = function(u1, u2) {
 };
 
 function MessageStore() {
-  this.data = [];
+  this.reset();
 }
+MessageStore.prototype.reset = function() {
+  this.data = [];
+};
 MessageStore.prototype.all = function() {
   return this.data.slice(0);
 };
@@ -102,13 +119,14 @@ app.post('/users', function(req, res) {
   }
 });
 
-
 app.get('/connections', function(req, res) {
   var rel = req.query['related-to'];
   if (rel && USERS[rel]) {
     res.send(CONNECTIONS.list(rel));
+  } else if (!rel) {
+    res.send(CONNECTIONS.all());
   } else {
-    res.status(400).send('Bad query param related-to');
+    res.status(400).send('Invalid related-to');
   }
 });
 
@@ -123,7 +141,6 @@ app.post('/connections', function(req, res) {
     res.status(400).send('Invalid connection');
   }
 });
-
 
 app.get('/messages', function(req, res) {
   res.send(MESSAGES.all());
@@ -154,6 +171,12 @@ app.get('/users/:id/sent-messages', function(req, res) {
   } else {
     res.status(404).send('Not Found');
   }
+});
+
+app.post('/admin/reset', function(req, res) {
+  MESSAGES.reset();
+  CONNECTIONS.reset();
+  res.send('ok');
 });
 
 

@@ -210,6 +210,7 @@ app.post('/admin/topology/ring', function(req, res) {
 // =========== debug ==========
 
 function setupTestData() {
+  /*
   USERS['alice'] = true;
   USERS['bob'] = true;
   USERS['carol'] = true;
@@ -223,6 +224,7 @@ function setupTestData() {
   MESSAGES.push({from: 'alice', to: 'bob', body: 'hi to bob'});
   MESSAGES.push({from: 'bob', to: 'alice', body: 'hi to alice'});
   MESSAGES.push({from: 'dave', to: 'carol', body: 'hi to carol'});
+  */
 }
 
 app.listen(app.get('port'), function() {

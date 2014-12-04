@@ -44,6 +44,14 @@ ConnectionStore.prototype.add = function(u1, u2) {
   this.data[u1][u2] = true;
   this.data[u2][u1] = true;
 };
+ConnectionStore.prototype.remove = function(u1, u2) {
+  if (this.contains(u1, u2)) {
+    delete this.data[u1][u2];
+    delete this.data[u2][u1];
+    return true;
+  }
+  return false;
+};
 
 function MessageStore() {
   this.reset();
@@ -139,6 +147,15 @@ app.post('/connections', function(req, res) {
     res.send(buildConnection(conn.from, conn.to));
   } else {
     res.status(400).send('Invalid connection');
+  }
+});
+
+app.delete('/connections/:from/:to', function(req, res) {
+  var q = req.params;
+  if (CONNECTIONS.remove(q.from, q.to)) {
+    res.send('ok');
+  } else {
+    res.status(404).send('Not Found');
   }
 });
 

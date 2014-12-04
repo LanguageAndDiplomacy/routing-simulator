@@ -21,6 +21,12 @@ export default Ember.ArrayController.extend({
       });
     },
     removeConnection: function(conn) {
+      var _this = this;
+      var removeFromUI = function() { _this.removeObject(conn); };
+      ajax({
+        type: 'DELETE',
+        url: ['/connections', conn.from, conn.to].join('/'),
+      }).then(removeFromUI, removeFromUI);
     },
     addConnection: function() {
       var _this = this;

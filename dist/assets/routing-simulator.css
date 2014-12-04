@@ -1,0 +1,32 @@
+html, body {
+  margin: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.connections {
+  color: green;
+}
+
+.message-number {
+  color: orange;
+}
+.message-from {
+  color: green;
+}
+.message-body {
+  white-space: pre-line;
+}
+
+.messages > ul > li {
+  padding-bottom: 20px;
+}
+.messages {
+  float: left;
+  width: 300px;
+}
+.sent.messages {
+  padding-left: 50px;
+}

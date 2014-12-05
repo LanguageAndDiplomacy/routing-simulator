@@ -38,10 +38,11 @@ export default Ember.ArrayController.extend({
     openComposer: function() {
       this.set('composerIsOpen', true);
       this.set('composerSendSuccess', false);
+      this.set('pendingTo', this.get('connections.firstObject'));
     },
     cancelComposer: function() {
       this.set('composerIsOpen', false);
-      this.set('pendingTo', null);
+      this.set('pendingTo', this.get('connections.firstObject'));
       this.set('pendingText', null);
     },
     send: function() {

@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ajax from '../utils/ajax';
 
 export default Ember.ArrayController.extend({
+  messages: null,
   message: null,
   pendingFrom: null,
   pendingTo: null,
@@ -12,12 +13,23 @@ export default Ember.ArrayController.extend({
         type: 'POST',
         url: '/admin/reset'
       }).then(function() {
+        _this.get('target').send('reload');
         return 'Reset successful!';
       }, function(err) {
         console.log(err);
         return 'Reset failed!';
       }).then(function(msg) {
         _this.set('message', msg);
+      });
+    },
+    generateMessages: function() {
+      var _this = this;
+      ajax({
+        type: 'POST',
+        url: '/admin/generate-messages',
+        dataType: 'json'
+      }).then(function(messages) {
+        _this.set('messages', messages);
       });
     },
     generateRingTopology: function() {

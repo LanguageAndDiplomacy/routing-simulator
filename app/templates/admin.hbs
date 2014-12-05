@@ -1,9 +1,8 @@
 <div>{{message}}</div>
 <div>
   <button {{action "reset"}}>Reset Sim</button>
-</div>
-<div>
   <button {{action "generateRingTopology"}}>Generate Ring Topology</button>
+  <button {{action "generateMessages"}}>Generate Messages</button>
 </div>
 <div class="panel">
   <h3>Connections</h3>
@@ -28,7 +27,16 @@
   <h3>Users</h3>
   <ul>
     {{#each user in users}}
-    <li>{{user.id}}</li>
+      <li>{{user.id}}</li>
     {{/each}}
   </ul>
 </div>
+<div class="messages panel">
+  <h3>Messages</h3>
+  <ul>
+    {{#each msg in messages}}
+      <li>{{msg.from}} → {{msg.to}}</li>
+    {{/each}}
+  </ul>
+</div>
+

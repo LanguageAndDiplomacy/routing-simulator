@@ -34,7 +34,5 @@ html, body {
 .panel {
   width: 300px;
   float: left;
-}
-.users.panel {
-  padding-left: 50px;
+  padding-right: 50px;
 }

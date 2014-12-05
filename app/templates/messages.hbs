@@ -1,5 +1,9 @@
 <h2>Hello, <i>{{me}}</i></h2>
-<p>You can <a href="javascript:null;" {{action "openComposer"}}>send</a> and receive messages from:</p>
+<p><a href="javascript:null;" {{action "reload"}}>Reload</a></p>
+<p>
+  You can <a href="javascript:null;" {{action "openComposer"}}>send</a>
+  and receive messages from {{nConnections}} people:
+</p>
 <ul class="connections">
   {{#each conn in connections}}
     <li>{{conn}}</li>

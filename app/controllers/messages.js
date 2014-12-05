@@ -8,6 +8,7 @@ export default Ember.ArrayController.extend({
 
   me: Ember.computed.alias('controllers.login.name'),
   latestMessageId: Ember.computed.alias('firstObject.id'),
+  nConnections: Ember.computed.alias('connections.length'),
 
   pendingTo: null,
   pendingText: null,
@@ -31,6 +32,9 @@ export default Ember.ArrayController.extend({
   cantSend: Ember.computed.or('composerIsSending', 'pendingMessageInvalid'),
 
   actions: {
+    reload: function() {
+      this.get('target').send('reload');
+    },
     openComposer: function() {
       this.set('composerIsOpen', true);
       this.set('composerSendSuccess', false);
@@ -55,6 +59,9 @@ export default Ember.ArrayController.extend({
         _this.set('composerIsOpen', false);
         _this.set('composerIsSending', false);
         _this.get('sentMessages').unshiftObject(msg);
+      }, function(error) {
+        console.log(error);
+        alert('Unable to send message. Please reload');
       });
     }
   }

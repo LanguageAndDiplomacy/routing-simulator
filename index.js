@@ -83,6 +83,10 @@ var MESSAGES = new MessageStore();
 
 // ========= helpers ==========
 
+function allUsers() {
+  return _.chain(USERS).keys().without('tealsteachers').value();
+}
+
 function buildUser(name) {
   return {id: name};
 }
@@ -101,7 +105,12 @@ function isValidMessage(msg) {
 // ========= routes ===========
 
 app.get('/users', function(req, res) {
-  res.send(_.keys(USERS).map(buildUser));
+  res.send(allUsers().map(buildUser));
+});
+
+app.delete('/users/:id', function(req, res) {
+  delete USERS[req.params.id];
+  res.send('ok');
 });
 
 app.get('/users/:id', function(req, res) {
@@ -198,7 +207,7 @@ app.post('/admin/reset', function(req, res) {
 
 app.post('/admin/topology/ring', function(req, res) {
   CONNECTIONS.reset();
-  var users = _.chain(USERS).keys().without('tealsteachers').value();
+  var users = allUsers();
   for (var i = 0; i < users.length; i++) {
     var next = (i + 1) % users.length;
     CONNECTIONS.add(users[i], users[next]);
@@ -206,6 +215,15 @@ app.post('/admin/topology/ring', function(req, res) {
   res.send(CONNECTIONS.all());
 });
 
+app.post('/admin/generate-messages', function(req, res) {
+  var users = _.shuffle(allUsers());
+  var messages = [];
+  for (var i = 0; i < users.length; i++) {
+    var next = (i + 1) % users.length;
+    messages.push({from: users[i], to: users[next]});
+  }
+  res.send(messages);
+});
 
 // =========== debug ==========
 

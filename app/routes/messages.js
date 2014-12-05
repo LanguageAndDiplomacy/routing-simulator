@@ -7,6 +7,11 @@ function get(url) {
 }
 
 export default Ember.Route.extend({
+  actions: {
+    reload: function() {
+      this.refresh();
+    }
+  },
   myUserName: function() {
     return this.controllerFor('login').get('name');
   },

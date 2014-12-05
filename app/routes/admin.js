@@ -3,12 +3,17 @@ import ajax from '../utils/ajax';
 
 // admin route
 export default Ember.Route.extend({
+  actions: {
+    reload: function() {
+      this.refresh();
+    }
+  },
   beforeModel: function() {
     var login = this.controllerFor('login');
     if (login.get('isLoggedIn') && login.get('name') === 'tealsteachers') {
       return;
     }
-    this.transitionTo('login');
+    this.transitionTo('index');
   },
   model: function() {
     var _this = this;
